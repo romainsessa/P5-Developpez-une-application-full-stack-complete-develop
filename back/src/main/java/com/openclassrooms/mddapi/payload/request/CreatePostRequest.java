@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.payload.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class PostCreateDTO {
+public class CreatePostRequest {
 	@NotNull
 	private Long topicId;
 
@@ -13,11 +13,11 @@ public class PostCreateDTO {
 	@NotBlank
 	private String content;
 
-	public PostCreateDTO() {
+	public CreatePostRequest() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PostCreateDTO(@NotNull Long topicId, @NotBlank String title, @NotBlank String content) {
+	public CreatePostRequest(@NotNull Long topicId, @NotBlank String title, @NotBlank String content) {
 		super();
 		this.topicId = topicId;
 		this.title = title;

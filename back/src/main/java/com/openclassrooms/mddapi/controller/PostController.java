@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.PostDTO;
-import com.openclassrooms.mddapi.payload.request.CommentCreateDTO;
-import com.openclassrooms.mddapi.payload.request.PostCreateDTO;
+import com.openclassrooms.mddapi.payload.request.CreateCommentRequest;
+import com.openclassrooms.mddapi.payload.request.CreatePostRequest;
 import com.openclassrooms.mddapi.service.IPostService;
 
 import jakarta.validation.Valid;
@@ -41,7 +41,7 @@ public class PostController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Long> createPost(@Valid @RequestBody PostCreateDTO postCreateDTO,
+	public ResponseEntity<Long> createPost(@Valid @RequestBody CreatePostRequest postCreateDTO,
 			Authentication authentication) {
 		Long postId = postService.createPost(postCreateDTO, authentication);
 		return ResponseEntity.ok(postId);
@@ -49,7 +49,7 @@ public class PostController {
 
 	@PostMapping("/{postId}/comments")
 	public ResponseEntity<Void> addComment(@PathVariable Long postId,
-			@Valid @RequestBody CommentCreateDTO commentCreateDTO, Authentication authentication) {
+			@Valid @RequestBody CreateCommentRequest commentCreateDTO, Authentication authentication) {
 		postService.addComment(postId, commentCreateDTO, authentication);
 		return ResponseEntity.ok().build();
 	}

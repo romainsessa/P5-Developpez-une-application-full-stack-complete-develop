@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.service.impl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import com.openclassrooms.mddapi.exception.NotFoundException;
 import com.openclassrooms.mddapi.mapper.TopicMapper;
 import com.openclassrooms.mddapi.repository.TopicRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.service.ITopicService;
 
 @Service
 public class TopicService implements ITopicService {

@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,13 @@ import com.openclassrooms.mddapi.entity.Topic;
 import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.exception.NotFoundException;
 import com.openclassrooms.mddapi.mapper.PostMapper;
-import com.openclassrooms.mddapi.payload.request.CommentCreateDTO;
-import com.openclassrooms.mddapi.payload.request.PostCreateDTO;
+import com.openclassrooms.mddapi.payload.request.CreateCommentRequest;
+import com.openclassrooms.mddapi.payload.request.CreatePostRequest;
 import com.openclassrooms.mddapi.repository.CommentRepository;
 import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.repository.TopicRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.service.IPostService;
 
 public class PostService implements IPostService {
 
@@ -36,7 +37,7 @@ public class PostService implements IPostService {
 		this.postMapper = postMapper;
 	}
 
-	public Long createPost(PostCreateDTO postCreateDTO, Authentication authentication) {
+	public Long createPost(CreatePostRequest postCreateDTO, Authentication authentication) {
 		String email = authentication.getName();
 		Long topicId = postCreateDTO.getTopicId();
 
@@ -77,7 +78,7 @@ public class PostService implements IPostService {
 		return postMapper.toDto(posts);
 	}
 
-	public void addComment(Long postId, CommentCreateDTO commentCreateDTO, Authentication authentication) {
+	public void addComment(Long postId, CreateCommentRequest commentCreateDTO, Authentication authentication) {
 		String email = authentication.getName();
 		User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Utilisateur"));
 
