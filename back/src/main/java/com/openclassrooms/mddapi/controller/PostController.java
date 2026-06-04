@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.dto.PostDTO;
 import com.openclassrooms.mddapi.payload.request.CommentCreateDTO;
 import com.openclassrooms.mddapi.payload.request.PostCreateDTO;
-import com.openclassrooms.mddapi.service.PostService;
+import com.openclassrooms.mddapi.service.IPostService;
 
 import jakarta.validation.Valid;
 
@@ -22,9 +22,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/post")
 public class PostController {
 
-	private final PostService postService;
+	private final IPostService postService;
 
-	public PostController(PostService postService) {
+	public PostController(IPostService postService) {
 		this.postService = postService;
 	}
 
