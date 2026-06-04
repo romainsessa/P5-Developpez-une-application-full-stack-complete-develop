@@ -15,7 +15,7 @@ import com.openclassrooms.mddapi.dto.TopicDTO;
 import com.openclassrooms.mddapi.service.ITopicService;
 
 @RestController
-@RequestMapping("/topic")
+@RequestMapping("/api/topic")
 public class TopicController {
 
 	private ITopicService topicService;

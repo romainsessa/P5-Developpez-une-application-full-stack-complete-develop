@@ -34,7 +34,7 @@ public class TopicService implements ITopicService {
 
 	public void subscribe(Long topicId, Authentication authentication) {
 		String email = authentication.getName();
-
+		System.out.println(email);
 		User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Utilisateur"));
 		Topic topic = topicRepository.findById(topicId).orElseThrow(() -> new NotFoundException("Thème"));
 
