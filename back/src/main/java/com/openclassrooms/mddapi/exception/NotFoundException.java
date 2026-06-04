@@ -1,18 +1,18 @@
 package com.openclassrooms.mddapi.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class NotFoundException extends RuntimeException {
 
-	private final HttpStatus httpStatus;
-
+	public NotFoundException() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public NotFoundException(String message) {
 		super(message + " non trouvé");
-		this.httpStatus = HttpStatus.NOT_FOUND;
-	}
 
-	public String getMessage() {
-		return super.getMessage();
 	}
 
 }

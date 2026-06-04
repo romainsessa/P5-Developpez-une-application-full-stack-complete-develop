@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.dto.PostDTO;
 import com.openclassrooms.mddapi.entity.Comment;
@@ -20,6 +21,7 @@ import com.openclassrooms.mddapi.repository.TopicRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.IPostService;
 
+@Service
 public class PostService implements IPostService {
 
 	private final CommentRepository commentRepository;

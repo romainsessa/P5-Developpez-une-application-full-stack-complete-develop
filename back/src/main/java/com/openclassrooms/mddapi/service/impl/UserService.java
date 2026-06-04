@@ -2,15 +2,19 @@ package com.openclassrooms.mddapi.service.impl;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.entity.User;
 import com.openclassrooms.mddapi.exception.BadRequestException;
 import com.openclassrooms.mddapi.exception.NotFoundException;
 import com.openclassrooms.mddapi.mapper.UserMapper;
+import com.openclassrooms.mddapi.payload.request.RegisterRequest;
 import com.openclassrooms.mddapi.payload.request.UpdateUserRequest;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.IUserService;
 
+@Service
 public class UserService implements IUserService {
 	private UserRepository userRepository;
 	private UserMapper userMapper;
@@ -24,6 +28,23 @@ public class UserService implements IUserService {
 		this.userMapper = userMapper;
 		this.passwordEncoder = passwordEncoder;
 	}
+	
+	public UserDTO createUser(RegisterRequest registerDTO) {
+	    if (userRepository.existsByEmail(registerDTO.getEmail())) {
+	      throw new BadRequestException("Email déjà utilisé");
+	    }
+	    if (userRepository.existsByUsername(registerDTO.getUsername())) {
+	      throw new BadRequestException("Nom d'utilisateur déjà utilisé");
+	    }
+
+	    User user = new User();
+	    user.setUsername(registerDTO.getUsername());
+	    user.setEmail(registerDTO.getEmail());
+	    user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));  
+	    user = userRepository.save(user);
+
+	    return userMapper.toDto(user);
+	  }
 
 	public UserDTO getUser(Authentication authentication) {
 		String email = authentication.getName();
