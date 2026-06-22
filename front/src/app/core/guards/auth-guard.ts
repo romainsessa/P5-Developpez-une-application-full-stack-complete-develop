@@ -5,11 +5,13 @@ import { inject } from '@angular/core';
 export const authGuard: CanActivateFn = (route, state) => {
   const sessionService = inject(SessionService);
   const router = inject(Router);
+  const isPublic = route.data?.['public'];
 
-  if (route.data?.['public']) {
+  if (isPublic) {
     if (sessionService.isLogged) {
-      return router.createUrlTree(['/dashboard']);
+      return router.createUrlTree(['/feed']);
     }
+    console.log('guard: public route, user not logged in, allowing access');
     return true;
   }
 

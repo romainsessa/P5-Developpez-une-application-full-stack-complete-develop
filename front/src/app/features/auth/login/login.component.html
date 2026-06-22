@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="login">
+  <div class="login-header">
+    <img src="MDD.png" alt="Logo" class="logo">
+    <button type="button" (click)="goBack()" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Se connecter</h1>
+  </div>
+  <div class="login-section">
+   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-field">
+        <label for="identifier">E-mail ou nom d’utilisateur</label>
+        <input type="text" id="identifier" formControlName="identifier" class="custom-input">
+      </div>
+
+      <div class="form-field">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" formControlName="password" class="custom-input">
+      </div>
+
+      <div *ngIf="onError" class="error-message">
+        <p>{{ errorMessage || "Remplissez tous les champs"}}</p>
+      </div>
+
+      <button type="submit" class="button-primary">Se connecter</button>
+    </form>
+  </div>
+</div>

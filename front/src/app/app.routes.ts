@@ -62,7 +62,6 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
 
-
   {
     path: 'create-post',
     loadComponent: () =>
@@ -71,13 +70,9 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
 
-
-
-
   {
     path: '**',
     redirectTo: ''
   }
-
 
 ];

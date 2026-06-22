@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.button-primary {
+  align-self: center;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #7763C5;
+  border: none;
+  color: white;
+  padding: 10px 40px;
+  min-width: 160px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.button-secondary {
+  border-radius: 8px;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+}
+
+.button-off {
+  align-self: center;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #939393 !important;
+  border: none;
+  color: white;
+  padding: 10px 40px;
+  min-width: 160px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+
