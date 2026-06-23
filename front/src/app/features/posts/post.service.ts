@@ -8,7 +8,7 @@ import { CreatePostRequest } from '../posts/models/createPostRequest';
   providedIn: 'root',
 })
 export class PostService {
-  private pathService = '/api/post';
+  private pathService = 'http://localhost:9000/api/post';
 
   constructor(private httpClient: HttpClient) {
   }

@@ -1,1 +1,45 @@
-<p>post-detail works!</p>
+<div class="detail" *ngIf="post$ | async as post">
+  <div class="post-header">
+    <button mat-icon-button (click)="back()" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>{{ post.title }}</h1>
+  </div>
+
+  <div class="post-meta">
+    <span>{{ post.createdAt }}</span>
+    <span class="author-name">{{ post.author }}</span>
+    <span class="topic-name">{{ post.topic }}</span>
+  </div>
+  <div class="post-content">
+    <p>{{ post.content }}</p>
+  </div>
+
+  <hr>
+
+  <div class="comment-form">
+    <h3>Commentaires</h3>
+
+    <div class="comment-list">
+      <ng-container *ngFor="let comment of post.comments">
+        <div class="comment-author">{{ comment.authorName }}</div>
+        <div class="comment-content">
+          <p>{{ comment.content }}</p>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="comment-actions">
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment(post.id)" class="comment-field">
+        <input
+          type="text"
+          formControlName="content"
+          placeholder="Écrivez ici votre commentaire"
+          class="comment-input">
+        <button type="submit" [disabled]="commentForm.invalid" class="send-btn">
+          <mat-icon>send</mat-icon>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
