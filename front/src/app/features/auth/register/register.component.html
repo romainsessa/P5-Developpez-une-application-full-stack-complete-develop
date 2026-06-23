@@ -1,35 +1,43 @@
 <div class="register">
-  <div class="register-header">
-    <img src="MDD.png" alt="Logo" class="logo">
-    <button type="button" (click)="goBack()" class="back-btn">
+
+  <header class="register-header">
+    <button type="button" (click)="goBack()" class="back-btn" aria-label="Retour">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1>Inscription</h1>
-  </div>
+  </header>
 
-  <div class="register-section">
-   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <section class="register-section">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
 
       <div class="form-field">
         <label for="username">Nom d'utilisateur</label>
-        <input type="text" id="username" formControlName="username" class="custom-input">
+        <input id="username" type="text" formControlName="username" class="custom-input" autocomplete="username"
+          required>
       </div>
 
       <div class="form-field">
         <label for="email">Adresse e-mail</label>
-        <input type="email" id="email" formControlName="email" class="custom-input">
+        <input id="email" type="email" formControlName="email" class="custom-input" autocomplete="email" required>
       </div>
 
       <div class="form-field">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" formControlName="password" class="custom-input">
+        <input id="password" type="password" formControlName="password" class="custom-input" autocomplete="new-password"
+          required>
       </div>
 
-      <div *ngIf="onError" class="error-message">
-        <p>{{ errorMessage || "Test"}}</p>
+      @if (onError) {
+      <div class="error-message">
+        <p>{{ errorMessage || "Une erreur est survenue" }}</p>
       </div>
+      }
 
-      <button type="submit" class="button-primary">S'inscrire</button>
+      <button type="submit" class="button-primary" [disabled]="registerForm.invalid">
+        S'inscrire
+      </button>
+
     </form>
-  </div>
+  </section>
+
 </div>

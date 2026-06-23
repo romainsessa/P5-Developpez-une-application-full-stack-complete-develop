@@ -33,25 +33,6 @@ export class ProfileComponent {
     this.loadMe();
   }
 
-  private loadMe(): void {
-    this.userService.me().subscribe({
-      next: (user: User) => {
-        this.user = user;
-        this.sessionService.updateUser(user);
-
-        this.userForm.patchValue({
-          username: user.username,
-          email: user.email,
-          password: ''
-        });
-      },
-      error: (error: any) => {
-        console.error(error);
-        this.onError = true;
-      }
-    });
-  }
-
   private initForm(): void {
     this.userForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -60,16 +41,34 @@ export class ProfileComponent {
     });
   }
 
+  private loadMe(): void {
+    this.userService.me().subscribe({
+      next: (user: User) => {
+        this.user = user;
+        this.sessionService.logIn(user);
+
+        this.userForm.patchValue({
+          username: user.username,
+          email: user.email,
+          password: ''
+        });
+      },
+      error: (error) => {
+        this.onError = true;
+        this.errorMessage = error?.error?.message;
+      }
+    });
+  }
+
   onSubmit(): void {
     if (this.userForm.valid) {
       this.userService.update(this.userForm.value).subscribe({
         next: (updatedUser: User) => {
-          this.sessionService.updateUser(updatedUser);
+          this.sessionService.logIn(updatedUser);
           this.onError = false;
           this.errorMessage = '';
         },
-        error: (error: any) => {
-          console.error(error);
+        error: (error) => {
           this.onError = true;
           this.errorMessage = error?.error?.message;
         }

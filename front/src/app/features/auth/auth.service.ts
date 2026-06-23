@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { RegisterRequest } from './models/registerRequest.interface';
 import { AuthResponse } from './models/authResponse.interface';
 import { LoginRequest } from './models/loginRequest.interface';
@@ -19,7 +19,10 @@ export class AuthService {
   }
 
   public login(loginRequest: LoginRequest): Observable<AuthResponse> {
-    return this.httpClient.post<AuthResponse>(`${this.pathService}/login`, loginRequest);
+    return this.httpClient.post<AuthResponse>(`${this.pathService}/login`, loginRequest)
+      .pipe(
+        tap(response => localStorage.setItem('token', response.token))
+      );
   }
-  
+
 }

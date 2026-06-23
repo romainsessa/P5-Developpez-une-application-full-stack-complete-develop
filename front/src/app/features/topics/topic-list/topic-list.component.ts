@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { Topic } from '../../../shared/models/topic.interface';
 import { TopicService } from '../topic.service';
 import { SessionService } from '../../../core/services/session.service';
-import { UserService } from '../../users/user.service';
-import { User } from '../../../shared/models/user.interface';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,42 +12,43 @@ import { CommonModule } from '@angular/common';
   templateUrl: './topic-list.component.html',
   styleUrl: './topic-list.component.css',
 })
-export class TopicListComponent {
-  public topics$: Observable<Topic[]>;
+export class TopicListComponent implements OnInit {
+
+  public topics$!: Observable<Topic[]>;
+  public subscribedTopicIds = new Set<number>();
 
   constructor(
     private topicService: TopicService,
-    private sessionService: SessionService,
-    private userService: UserService
+    private sessionService: SessionService
   ) {
-    this.topics$ = this.topicService.getAll();
+    this.topics$ = this.topicService.getAll();    
   }
 
-  public subscribe(topicId: number): void {
-    const userId = this.sessionService.user?.id;
-    console.log('subscribe', topicId, userId);
-    if (userId) {
-      this.topicService.subscribe(topicId).subscribe({
-        next: () => {
-          this.fetchSession();
-        }
-      });
-    }
+  ngOnInit(): void {
+    this.updateSubscriptions();
   }
 
-  public fetchSession(): void {
-    this.userService.me().subscribe({
-      next: (user: User) => {
-        this.sessionService.updateUser(user);
-      }
-    });
+  private updateSubscriptions(): void {
+    const user = this.sessionService.user;
+
+    this.subscribedTopicIds = new Set(
+      (user?.topics ?? [])
+        .map(t => t.id)
+        .filter((id): id is number => id !== undefined)
+    );
   }
 
   public isSubscribed(topicId: number): boolean {
-    const user = this.sessionService.user;
-    if (!user || !user.topics) {
-      return false;
-    }
-    return user.topics.some(t => t.id === topicId);
+    return this.subscribedTopicIds.has(topicId);
   }
+
+  public subscribe(topicId: number): void {
+    this.topicService.subscribe(topicId).pipe(
+      tap(() => {
+        this.sessionService.refreshUser();
+        setTimeout(() => this.updateSubscriptions());
+      })
+    ).subscribe();
+  }
+
 }

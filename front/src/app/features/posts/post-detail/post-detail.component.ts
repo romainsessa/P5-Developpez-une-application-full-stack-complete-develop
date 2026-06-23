@@ -29,7 +29,6 @@ export class PostDetailComponent {
     if (sessionId) {
       this.post$ = this.postService.detail(sessionId);
     }
-
     this.initForm();
   }
 
@@ -42,7 +41,6 @@ export class PostDetailComponent {
   public onSubmitComment(postId: number): void {
     if (this.commentForm.valid) {
       const content = this.commentForm.value.content;
-
       this.postService.addComment(postId, content).subscribe({
         next: () => {
           this.post$ = this.postService.detail(postId.toString());

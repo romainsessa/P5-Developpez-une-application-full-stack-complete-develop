@@ -1,20 +1,29 @@
-<div class="header" *ngIf="showHeader()">
-      <div class="logo">
-        <img src="MDD.png" alt="Logo" class="logo">
-      </div>
-
-      <button class="mobile-menu" *ngIf="$isLogged() | async" (click)="active = !active">
-        <mat-icon>menu</mat-icon>
-      </button>
-
-      <div class="overlay" *ngIf="active" (click)="active = !active"></div>
-
-      <aside class="nav-links" [class.active]="active" *ngIf="$isLogged() | async">
-        <span (click)="logout()" class="logout-link">Se deconnecter</span>
-        <span (click)="active = !active" routerLink="feed" class="link">Article</span>
-        <span (click)="active = !active" routerLink="topics" class="link">Theme</span>
-        <span (click)="active = !active" routerLink="profile" class="user-icon">
-          <mat-icon>account_circle</mat-icon>
-        </span>
-    </aside>
+@if (showHeader$ | async) {
+<header class="header">
+  <div class="logo">
+    <img src="MDD.png" alt="Logo MDD">
   </div>
+  @if (isLogged$ | async) {
+  <button class="mobile-menu" type="button" (click)="active = !active" aria-label="Ouvrir le menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  @if (active) {
+  <div class="overlay" (click)="active = false"></div>
+  }
+  <nav class="nav-links" [class.active]="active">
+    <button class="logout-link" type="button" (click)="logout()">
+      Se déconnecter
+    </button>
+    <a class="link" routerLink="/feed" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" (click)="active = false">
+      Articles
+    </a>
+    <a class="link" routerLink="/topics" routerLinkActive="active-link" (click)="active = false">
+      Thèmes
+    </a>
+    <a class="user-icon" routerLink="/profile" (click)="active = false" aria-label="Profil">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+  </nav>
+  }
+</header>
+}

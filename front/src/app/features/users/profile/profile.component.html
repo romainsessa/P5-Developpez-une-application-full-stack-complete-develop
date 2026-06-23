@@ -1,52 +1,75 @@
-<div class="profil" *ngIf="user">
-  <div class="profil-header">
+@if (user) {
+
+<div class="profil">
+
+  <header class="profil-header">
     <h1>Profil utilisateur</h1>
-  </div>
+  </header>
 
-  <div class="profil-form">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="profile-form">
-      <div class="form-group">
-        <input type="text" formControlName="username" class="custom-input">
+  <section class="profil-form">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="profile-form" novalidate>
+
+      <div class="form-field">
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" type="text" formControlName="username" class="custom-input" autocomplete="username">
       </div>
 
       <div class="form-field">
-        <input type="email" formControlName="email" class="custom-input">
+        <label for="email">Adresse e-mail</label>
+        <input id="email" type="email" formControlName="email" class="custom-input" autocomplete="email">
       </div>
 
       <div class="form-field">
-        <input type="password" formControlName="password" class="custom-input">
+        <label for="password">Nouveau mot de passe</label>
+        <input id="password" type="password" formControlName="password" class="custom-input"
+          autocomplete="new-password">
       </div>
 
       <div class="form-actions">
-        <button type="submit" [disabled]="userForm.invalid" class="button-primary">
+        <button type="submit" class="button-primary" [disabled]="userForm.invalid">
           Sauvegarder
         </button>
       </div>
+
     </form>
-    <div *ngIf="onError" class="error-message">
-      <p>{{ errorMessage || "Remplissez tous les champs"}}</p>
+
+    <!-- ERROR -->
+    @if (onError) {
+    <div class="error-message">
+      <p>{{ errorMessage || "Une erreur est survenue" }}</p>
     </div>
-  </div>
+    }
 
-<hr>
+  </section>
 
-<div class="subscriptions" *ngIf="user">
-  <h2>Abonnements</h2>
+  <hr>
 
-  <div class="topic-list">
-    <div class="topic-card" *ngFor="let topic of user.topics">
-      <div class="topic-title">
-        <h3>{{ topic.name }}</h3>
+  <section class="subscriptions">
+    <h2>Abonnements</h2>
+
+    <div class="topic-list">
+      @for (topic of user.topics; track topic.id) {
+      <div class="topic-card">
+
+        <div class="topic-title">
+          <h3>{{ topic.name }}</h3>
+        </div>
+
+        <div class="topic-description">
+          <p>{{ topic.description }}</p>
+        </div>
+
+        <div class="topic-actions">
+          <button class="button-primary" (click)="topic.id && unsubscribe(topic.id)">
+            Se désabonner
+          </button>
+        </div>
+
       </div>
-      <div class="topic-description">
-        <p>{{ topic.description }}</p>
-      </div>
-      <div class="topic-actions">
-        <button (click)="topic.id && unsubscribe(topic.id)" class="button-primary">
-          Se désabonner
-        </button>
-      </div>
+      }
     </div>
-  </div>
-  </div>
+  </section>
+
 </div>
+
+}

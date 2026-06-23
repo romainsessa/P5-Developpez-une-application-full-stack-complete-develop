@@ -1,45 +1,46 @@
 <div class="form">
-  <div class="form-header">
-    <button mat-icon-button (click)="back()" class="back-btn">
+  <header class="form-header">
+    <button type="button" (click)="back()" class="back-btn" aria-label="Retour">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1>Créer un nouvel article</h1>
-  </div>
-
-  <div class="form-section">
-    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  </header>
+  <section class="form-section">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="form-field">
-        <select formControlName="topicId" class="custom-input">
-          <option value="" disabled selected>Sélectionner un thème</option>
-          <option *ngFor="let topic of topics" [value]="topic.id">
+        <label for="topicId">Thème</label>
+        <select id="topicId" formControlName="topicId" class="custom-input" required>
+          <option value="" disabled>Sélectionner un thème</option>
+          @for (topic of topics; track topic.id) {
+          <option [value]="topic.id">
             {{ topic.name }}
           </option>
+          }
         </select>
       </div>
-
       <div class="form-field">
-        <input
-          type="text"
-          formControlName="title"
-          placeholder="Titre de l’article"
-          class="custom-input">
+        <label for="title">Titre</label>
+        <input id="title" type="text" formControlName="title" placeholder="Titre de l’article" class="custom-input"
+          autocomplete="off" required>
       </div>
-
       <div class="form-field">
-        <textarea
-          formControlName="content"
-          placeholder="Contenu de l’article"
-          class="custom-input textarea-input">
+        <label for="content">Contenu</label>
+        <textarea id="content" formControlName="content" placeholder="Contenu de l’article"
+          class="custom-input textarea-input" rows="5" required>
         </textarea>
       </div>
-
-      <p *ngIf="onError" class="error-message">
-        ERREUR.
+      @if (onError) {
+      <p class="error-message">
+        {{ errorMessage || 'Une erreur est survenue' }}
       </p>
-
+      }
       <div class="form-actions">
-        <button type="submit" [disabled]="postForm.invalid" class="button-primary">Créer</button>
+        <button type="submit" class="button-primary" [disabled]="postForm.invalid">
+          Créer
+        </button>
       </div>
+
     </form>
-  </div>
+  </section>
+
 </div>

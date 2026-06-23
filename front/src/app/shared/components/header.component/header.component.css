@@ -20,6 +20,11 @@
   gap: 30px;
 }
 
+.nav-links a {
+  text-decoration: none;
+  color: black;
+}
+
 .link {
   font-size: 22px;
   cursor: pointer;
@@ -30,12 +35,23 @@
   color: #7763C5;
 }
 
+.active-link {
+  color: #7763C5 !important;
+}
+
+.nav-links a:hover {
+  color: #7763C5;
+}
+
 .logout-link {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   color: red;
+  background: none;
+  border: none;
 }
+
 .user-icon mat-icon {
   font-size: 60px;
   width: 60px;
@@ -44,6 +60,7 @@
   cursor: pointer;
   display: flex;
 }
+
 .mobile-menu {
   display: none;
 }
@@ -64,7 +81,7 @@
     background-color: rgba(0, 0, 0, 0.4);
   }
 
-  aside.nav-links {
+  .nav-links {
     position: fixed;
     top: 0;
     right: 0;
@@ -80,7 +97,7 @@
     z-index: 1000;
   }
 
-  aside.nav-links.active {
+  .nav-links.active {
     transform: translateX(0);
   }
 

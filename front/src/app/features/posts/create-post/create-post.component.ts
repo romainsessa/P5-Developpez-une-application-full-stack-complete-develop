@@ -16,16 +16,17 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './create-post.component.css',
 })
 export class CreatePostComponent {
-public postForm!: FormGroup;
+  public postForm!: FormGroup;
   public topics: Topic[] = [];
   public onError = false;
+  public errorMessage: string = '';
 
-  constructor (
+  constructor(
     private router: Router,
     private fb: FormBuilder,
     private postService: PostService,
     private topicService: TopicService
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.initForm();
@@ -45,8 +46,9 @@ public postForm!: FormGroup;
       next: (topics) => {
         this.topics = topics;
       },
-      error: () => {
+      error: (error) => {
         this.onError = true;
+        this.errorMessage = error?.error?.message || 'Une erreur est survenue';
       }
     });
   }
@@ -54,14 +56,13 @@ public postForm!: FormGroup;
   public onSubmit(): void {
     if (this.postForm.valid) {
       const post = this.postForm.value as CreatePostRequest;
-      console.log(post);
-
       this.postService.create(post).subscribe({
         next: (postId: number) => {
           this.router.navigate(['/detail', postId]);
         },
-        error: () => {
+        error: (error) => {
           this.onError = true;
+          this.errorMessage = error?.error?.message || 'Une erreur est survenue';
         }
       });
     }

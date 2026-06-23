@@ -9,6 +9,10 @@ import { AuthResponse } from '../models/authResponse.interface';
 import { User } from '../../../shared/models/user.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { switchMap } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login-component',
@@ -29,32 +33,30 @@ export class LoginComponent {
     private userService: UserService,
     private sessionService: SessionService
   ) {
-    this.loginForm = this.fb.group({
+    this.loginForm = this.fb.nonNullable.group({
       identifier: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
 
   public onSubmit(): void {
-    const loginRequest = this.loginForm.value as LoginRequest;
-    this.authService.login(loginRequest).subscribe({
-      next: (response: AuthResponse) => {
-        localStorage.setItem('token', response.token);
-        this.userService.me().subscribe({
-          next: (user: User) => {
-            this.sessionService.logIn(user);
-            this.router.navigate(['/post']);
-          },
-          error: () => {
-            this.onError = true;
-          }
-        });
+    const loginRequest: LoginRequest = this.loginForm.getRawValue();
+
+    this.authService.login(loginRequest).pipe(
+      switchMap(() => {
+        return this.userService.me();
+      })
+    ).subscribe({
+      next: (user: User) => {
+        this.sessionService.logIn(user);
+        this.router.navigate(['/feed']);
       },
       error: (error) => {
         this.onError = true;
-        this.errorMessage = error.error?.message;
+        this.errorMessage = error?.error?.message || 'Une erreur est survenue';
       }
     });
+
   }
 
   public goBack(): void {

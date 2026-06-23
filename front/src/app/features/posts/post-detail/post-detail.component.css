@@ -1,20 +1,19 @@
-.detail {
-  padding: 30px;
-  max-width: 75%;
-  margin: 0 auto;
+* {
+  box-sizing: border-box;
 }
 
-.back-btn {
-  border: none !important;
-  left: 0;
-  background-color: transparent;
+.detail {
+  padding: 20px 15px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .post-header {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -22,6 +21,7 @@
   margin: 0;
   font-size: 24px;
   font-weight: 600;
+  text-align: center;
 }
 
 .post-meta {
@@ -43,26 +43,21 @@
   margin-bottom: 20px;
 }
 
-.comment-list {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 15px 20px;
-  margin-bottom: 30px;
-  align-items: center;
-}
-
 .comment-author {
+  min-width: 100px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   text-align: right;
+  white-space: nowrap;
 }
 
 .comment-content {
-  max-width: 50%;
+  flex:1;
   background-color: #EEEEEE;
-  padding: 15px;
+  padding: 12px;
   border-radius: 10px;
   font-size: 16px;
+  word-break: break-word;
 }
 
 .comment-content p {
@@ -83,7 +78,14 @@
   flex-grow: 1;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 15px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 10px 15px;
+  margin-bottom: 20px;
+  align-items: flex-start;
 }
 
 .send-btn {
@@ -106,17 +108,24 @@
     align-items: flex-start;
   }
 
-  .comment-author {
-    text-align: right;
-    margin-bottom: 5px;
-  }
-
   .comment-list {
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
-  .comment-content {
-    max-width: 100%;
+  .comment-item {
+    flex-direction: column;
+    gap: 5px;
   }
+
+  .comment-author {
+    text-align: left;
+    min-width: auto;
+    font-size: 14px;
+  }
+
+  .comment-content {
+    width: 100%;
+  }
+
 }

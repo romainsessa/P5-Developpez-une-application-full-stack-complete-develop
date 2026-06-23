@@ -1,45 +1,50 @@
-<div class="detail" *ngIf="post$ | async as post">
-  <div class="post-header">
-    <button mat-icon-button (click)="back()" class="back-btn">
+@if (post$ | async; as post) {
+<div class="detail">
+  <header class="post-header">
+    <button type="button" (click)="back()" class="back-btn" aria-label="Retour">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1>{{ post.title }}</h1>
-  </div>
-
+  </header>
   <div class="post-meta">
-    <span>{{ post.createdAt }}</span>
+    <span>{{ post.createdAt | date:'short' }}</span>
     <span class="author-name">{{ post.author }}</span>
     <span class="topic-name">{{ post.topic }}</span>
   </div>
-  <div class="post-content">
+  <section class="post-content">
     <p>{{ post.content }}</p>
-  </div>
+  </section>
 
   <hr>
 
-  <div class="comment-form">
+  <section class="comment-form">
     <h3>Commentaires</h3>
-
     <div class="comment-list">
-      <ng-container *ngFor="let comment of post.comments">
-        <div class="comment-author">{{ comment.authorName }}</div>
+      @for (comment of post.comments; track comment.id) {
+      <div class="comment-item">
+        <div class="comment-author">
+          {{ comment.authorName }}
+        </div>
         <div class="comment-content">
           <p>{{ comment.content }}</p>
         </div>
-      </ng-container>
+      </div>
+      }
+      @if (post.comments.length === 0) {
+      <p class="empty-state">Aucun commentaire pour le moment</p>
+      }
     </div>
-
     <div class="comment-actions">
-      <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment(post.id)" class="comment-field">
-        <input
-          type="text"
-          formControlName="content"
-          placeholder="Écrivez ici votre commentaire"
-          class="comment-input">
-        <button type="submit" [disabled]="commentForm.invalid" class="send-btn">
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment(post.id)" class="comment-field" novalidate>
+
+        <input type="text" formControlName="content" placeholder="Écrivez ici votre commentaire" class="comment-input"
+          autocomplete="off" required>
+
+        <button type="submit" class="send-btn" [disabled]="commentForm.invalid" aria-label="Envoyer le commentaire">
           <mat-icon>send</mat-icon>
         </button>
       </form>
     </div>
-  </div>
+  </section>
 </div>
+}

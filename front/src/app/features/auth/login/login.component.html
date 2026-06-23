@@ -1,29 +1,38 @@
 <div class="login">
-  <div class="login-header">
-    <img src="MDD.png" alt="Logo" class="logo">
-    <button type="button" (click)="goBack()" class="back-btn">
+
+  <header class="login-header">
+    <button type="button" (click)="goBack()" class="back-btn" aria-label="Retour">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <h1>Se connecter</h1>
-  </div>
-  <div class="login-section">
-   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  </header>
+
+  <section class="login-section">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
 
       <div class="form-field">
         <label for="identifier">E-mail ou nom d’utilisateur</label>
-        <input type="text" id="identifier" formControlName="identifier" class="custom-input">
+        <input id="identifier" type="text" formControlName="identifier" class="custom-input"
+          aria-describedby="identifier-error">
       </div>
 
       <div class="form-field">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" formControlName="password" class="custom-input">
+        <input id="password" type="password" formControlName="password" class="custom-input"
+          aria-describedby="password-error">
       </div>
 
-      <div *ngIf="onError" class="error-message">
-        <p>{{ errorMessage || "Remplissez tous les champs"}}</p>
+      @if (onError) {
+      <div class="error-message">
+        <p>{{ errorMessage || 'Identifiants invalides' }}</p>
       </div>
+      }
 
-      <button type="submit" class="button-primary">Se connecter</button>
+      <button type="submit" class="button-primary" [disabled]="loginForm.invalid">
+        Se connecter
+      </button>
+
     </form>
-  </div>
+  </section>
+
 </div>

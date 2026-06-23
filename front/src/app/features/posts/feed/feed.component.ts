@@ -27,7 +27,6 @@ export class FeedComponent {
       return [...posts].sort((a, b) => {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
-
         return order === 'date-asc'
           ? dateA - dateB
           : dateB - dateA;
@@ -35,7 +34,6 @@ export class FeedComponent {
     })
     );
   }
-
 
   public onSort(): void {
     const current = this.sortMode$.value;
