@@ -1,1 +1,20 @@
-<p>topic-list works!</p>
+<div class="topic">
+  <div class="topic-list" *ngIf="topics$ | async as topics;">
+    <div class="topic-card" *ngFor="let topic of topics">
+      <div class="topic-title">
+        <h2>{{ topic.name }}</h2>
+      </div>
+      <div class="topic-description">
+        <p>{{ topic.description }}</p>
+      </div>
+      <div class="topic-actions" *ngIf="topic.id">
+        <button *ngIf="!isSubscribed(topic.id)" (click)="subscribe(topic.id)" class="button-primary">
+          S'abonner
+        </button>
+        <button *ngIf="isSubscribed(topic.id)" class="button-off" disabled>
+          Déjà abonné
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

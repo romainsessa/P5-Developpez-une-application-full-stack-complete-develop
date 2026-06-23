@@ -7,7 +7,7 @@ import { Topic } from '../../shared/models/topic.interface';
   providedIn: 'root',
 })
 export class TopicService {
-  private pathService = '/api/topic';
+  private pathService = 'http://localhost:9000/api/topic';
 
   constructor(private httpClient: HttpClient) {
   }

@@ -12,7 +12,7 @@ export class SessionService {
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
   constructor() {
-    this.isLogged = !!localStorage.getItem('token');     
+    this.isLogged = !!localStorage.getItem('token');
   }
 
   public $isLogged(): Observable<boolean> {

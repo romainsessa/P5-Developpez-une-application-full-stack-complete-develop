@@ -1,0 +1,20 @@
+<div class="header" *ngIf="showHeader()">
+      <div class="logo">
+        <img src="MDD.png" alt="Logo" class="logo">
+      </div>
+
+      <button class="mobile-menu" *ngIf="$isLogged() | async" (click)="active = !active">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="overlay" *ngIf="active" (click)="active = !active"></div>
+
+      <aside class="nav-links" [class.active]="active" *ngIf="$isLogged() | async">
+        <span (click)="logout()" class="logout-link">Se deconnecter</span>
+        <span (click)="active = !active" routerLink="feed" class="link">Article</span>
+        <span (click)="active = !active" routerLink="topics" class="link">Theme</span>
+        <span (click)="active = !active" routerLink="profile" class="user-icon">
+          <mat-icon>account_circle</mat-icon>
+        </span>
+    </aside>
+  </div>
