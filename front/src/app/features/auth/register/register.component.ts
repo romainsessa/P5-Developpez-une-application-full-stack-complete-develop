@@ -41,21 +41,17 @@ export class RegisterComponent {
     this.authService.register(registerRequest).subscribe({
       next: (response: AuthResponse) => {
         localStorage.setItem('token', response.token);
-        console.log('Token stored in localStorage:', response.token);
         this.userService.me().subscribe({
           next: (user: User) => {
-            console.log('User retrieved:', user);
             this.sessionService.logIn(user);
             this.router.navigate(['/feed']);
           },
           error: () => {
-            console.error('Error retrieving user information');
             this.onError = true;
           }
         });
       },
       error: (error) => {
-        console.error('Error during registration:', error);
         this.onError = true;
         this.errorMessage = error.error?.message;
       }

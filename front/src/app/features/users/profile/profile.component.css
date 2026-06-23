@@ -1,0 +1,95 @@
+.profil {
+  padding: 30px;
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+.profil-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.profil-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.profile-form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #7763C5;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.subscriptions h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.topic-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.topic-card {
+  background-color: #e7e7e7;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 150px;
+}
+
+.topic-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.topic-description  {
+  font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 3;
+}
+
+.topic-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .topic-list {
+    grid-template-columns: 1fr;
+  }
+
+}

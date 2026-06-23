@@ -11,7 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     if (sessionService.isLogged) {
       return router.createUrlTree(['/feed']);
     }
-    console.log('guard: public route, user not logged in, allowing access');
     return true;
   }
 
