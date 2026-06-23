@@ -8,7 +8,7 @@ import { UpdateUserRequest } from './models/UpdateUserRequest.interface';
   providedIn: 'root',
 })
 export class UserService {
-  private pathService = '/api/user';
+  private pathService = 'http://localhost:9000/api/user';
 
   constructor(private httpClient: HttpClient) { }
 

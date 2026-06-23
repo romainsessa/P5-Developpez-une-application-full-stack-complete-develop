@@ -10,7 +10,7 @@ import { LoginRequest } from './models/loginRequest.interface';
 })
 export class AuthService {
 
-  private pathService = '/api/auth';
+  private pathService = 'http://localhost:9000/api/auth';
 
   constructor(private httpClient: HttpClient) { }
 

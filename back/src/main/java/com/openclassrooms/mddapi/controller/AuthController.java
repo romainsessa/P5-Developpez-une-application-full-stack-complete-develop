@@ -56,7 +56,7 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity<TokenResponse> registerUser(@Valid @RequestBody RegisterRequest request) {
 		UserDTO user = userService.createUser(request);
-		String token = jwtService.generateToken(user.username());
+		String token = jwtService.generateToken(user.email());
 		return ResponseEntity.ok(new TokenResponse(token));
 	}
 }
