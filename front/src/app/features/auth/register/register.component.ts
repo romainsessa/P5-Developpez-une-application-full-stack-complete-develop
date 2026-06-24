@@ -8,12 +8,11 @@ import { AuthResponse } from '../models/authResponse.interface';
 import { User } from '../../../shared/models/user.interface';
 import { CommonModule } from '@angular/common';
 import { RegisterRequest } from '../models/registerRequest.interface';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-register-component',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -32,7 +31,11 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [
+        Validators.required,
+        Validators.minLength(12),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/)      
+      ]]
     });
   }
 
@@ -53,7 +56,7 @@ export class RegisterComponent {
       },
       error: (error) => {
         this.onError = true;
-        this.errorMessage = error.error?.message;
+        this.errorMessage = error.error?.message; //TODO n'apparait pas
       }
     });
   }
