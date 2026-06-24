@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, startWith } from 'rxjs';
 import { Post } from '../../../shared/models/post.interface';
 import { PostService } from '../post.service';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-feed-component',
   standalone: true,
-  imports: [MatIconModule, CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
 })

@@ -2,7 +2,7 @@
 <div class="detail">
   <header class="post-header">
     <button type="button" (click)="back()" class="back-btn" aria-label="Retour">
-      <mat-icon>arrow_back</mat-icon>
+      <span class="material-icons">arrow_back</span>
     </button>
     <h1>{{ post.title }}</h1>
   </header>
@@ -41,7 +41,7 @@
           autocomplete="off" required>
 
         <button type="submit" class="send-btn" [disabled]="commentForm.invalid" aria-label="Envoyer le commentaire">
-          <mat-icon>send</mat-icon>
+          <span class="material-icons">send</span>
         </button>
       </form>
     </div>

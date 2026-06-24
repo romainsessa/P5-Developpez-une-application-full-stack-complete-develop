@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { Topic } from '../../../shared/models/topic.interface';
 import { TopicService } from '../topic.service';
 import { SessionService } from '../../../core/services/session.service';
@@ -21,7 +21,7 @@ export class TopicListComponent implements OnInit {
     private topicService: TopicService,
     private sessionService: SessionService
   ) {
-    this.topics$ = this.topicService.getAll();    
+    this.topics$ = this.topicService.getAll();
   }
 
   ngOnInit(): void {
@@ -44,11 +44,13 @@ export class TopicListComponent implements OnInit {
 
   public subscribe(topicId: number): void {
     this.topicService.subscribe(topicId).pipe(
-      tap(() => {
-        this.sessionService.refreshUser();
-        setTimeout(() => this.updateSubscriptions());
-      })
-    ).subscribe();
+      switchMap(() => this.sessionService.refreshUser$())
+    ).subscribe({
+      next: () => {
+        this.updateSubscriptions();
+      }
+    });
+
   }
 
 }

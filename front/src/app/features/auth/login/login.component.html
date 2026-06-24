@@ -1,8 +1,8 @@
 <div class="login">
 
   <header class="login-header">
-    <button type="button" (click)="goBack()" class="back-btn" aria-label="Retour">
-      <mat-icon>arrow_back</mat-icon>
+    <button type="button" (click)="goBack()" class="back-btn" aria-label="Retour à la page précédente">
+      <span class="material-icons">arrow_back</span>
     </button>
     <h1>Se connecter</h1>
   </header>
@@ -23,7 +23,7 @@
       </div>
 
       @if (onError) {
-      <div class="error-message">
+      <div class="error-message" role="alert" aria-live="assertive">
         <p>{{ errorMessage || 'Identifiants invalides' }}</p>
       </div>
       }

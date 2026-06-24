@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SessionService } from '../../../core/services/session.service';
 import { map, Observable } from 'rxjs';
@@ -8,7 +7,7 @@ import { map, Observable } from 'rxjs';
 @Component({
   selector: 'app-header-component',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

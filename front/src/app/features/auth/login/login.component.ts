@@ -5,19 +5,14 @@ import { AuthService } from '../auth.service';
 import { UserService } from '../../users/user.service';
 import { SessionService } from '../../../core/services/session.service';
 import { LoginRequest } from '../models/loginRequest.interface';
-import { AuthResponse } from '../models/authResponse.interface';
 import { User } from '../../../shared/models/user.interface';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login-component',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -20,6 +22,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 10px 30px;
   font-size: 16px;
   font-weight: 600;
+  background-color: white;
   border: 1px solid black;
   color: black;
   cursor: pointer;
@@ -39,4 +42,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   cursor: pointer;
 }
 
-
+.back-btn {
+  position: absolute;
+  left: 0px;
+  border: none !important;
+  /* margin-top: 10px;
+  background: none;*/
+  cursor: pointer;
+  background-color: transparent;
+}

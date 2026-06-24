@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { User } from "../../shared/models/user.interface";
 import { UserService } from "../../features/users/user.service";
 
@@ -52,6 +52,12 @@ export class SessionService {
         this.logOut();
       }
     });
+  }
+
+  public refreshUser$() {
+    return this.userService.me().pipe(
+      tap(user => this.logIn(user))
+    );
   }
 
 }

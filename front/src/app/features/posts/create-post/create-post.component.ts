@@ -6,12 +6,11 @@ import { PostService } from '../post.service';
 import { TopicService } from '../../topics/topic.service';
 import { CreatePostRequest } from '../models/createPostRequest';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-post-component',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.css',
 })
