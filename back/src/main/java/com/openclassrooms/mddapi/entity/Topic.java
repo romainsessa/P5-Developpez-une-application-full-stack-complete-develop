@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -33,7 +34,7 @@ public class Topic {
 		name = "SUBSCRIPTION", 
 		joinColumns = @JoinColumn(name = "topic_id"), 
 		inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> users;
+	private List<User> users = new ArrayList<User>();
 
 	public Long getId() {
 		return id;

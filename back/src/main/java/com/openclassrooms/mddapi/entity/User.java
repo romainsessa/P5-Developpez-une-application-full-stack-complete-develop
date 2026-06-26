@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,7 +49,7 @@ public class User {
 	private LocalDateTime updatedAt;
 
 	@ManyToMany(mappedBy = "users")
-	private List<Topic> topics;
+	private List<Topic> topics = new ArrayList<Topic>();
 
 	public Long getId() {
 		return id;
