@@ -1,0 +1,29 @@
+<div class="topic">
+  @if (topics$ | async; as topics) {
+  <div class="topic-list">
+    @for (topic of topics; track topic.id) {
+    <div class="topic-card">
+      <div class="topic-title">
+        <h2>{{ topic.name }}</h2>
+      </div>
+      <div class="topic-description">
+        <p>{{ topic.description }}</p>
+      </div>
+      @if (topic.id) {
+      <div class="topic-actions">
+        @if (!isSubscribed(topic.id)) {
+        <button class="button-primary" (click)="subscribe(topic.id)">
+          S'abonner
+        </button>
+        } @else {
+        <button class="button-off" disabled>
+          Déjà abonné
+        </button>
+        }
+      </div>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

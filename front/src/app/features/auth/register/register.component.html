@@ -1,0 +1,43 @@
+<div class="register">
+
+  <header class="register-header">
+    <button type="button" (click)="goBack()" class="back-btn" aria-label="Retour à la page précédente">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <h1>Inscription</h1>
+  </header>
+
+  <section class="register-section">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-field">
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" type="text" formControlName="username" class="custom-input" autocomplete="username"
+          required>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Adresse e-mail</label>
+        <input id="email" type="email" formControlName="email" class="custom-input" autocomplete="email" required>
+      </div>
+
+      <div class="form-field">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" class="custom-input" autocomplete="new-password"
+          required>
+      </div>
+
+      @if (onError) {
+      <div class="error-message">
+        <p>{{ errorMessage || "Une erreur est survenue" }}</p>
+      </div>
+      }
+
+      <button type="submit" class="button-primary" [disabled]="registerForm.invalid">
+        S'inscrire
+      </button>
+
+    </form>
+  </section>
+
+</div>

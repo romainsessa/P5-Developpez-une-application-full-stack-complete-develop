@@ -1,0 +1,30 @@
+@if (showHeader$ | async) {
+<header class="header">
+  <div class="logo">
+    <img src="MDD.png" alt="Logo MDD" width="233" height="134" />
+  </div>
+  @if (isLogged$ | async) {
+  <button class="mobile-menu" type="button" (click)="active = !active" aria-label="Ouvrir le menu">
+    <span class="material-icons">menu</span>
+  </button>
+  @if (active) {
+  <div class="overlay" (click)="active = false"></div>
+  }
+  <nav class="nav-links" [class.active]="active">
+    <button class="logout-link" type="button" (click)="logout()">
+      Se déconnecter
+    </button>
+    <a class="link" routerLink="/feed" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+      (click)="active = false">
+      Articles
+    </a>
+    <a class="link" routerLink="/topics" routerLinkActive="active-link" (click)="active = false">
+      Thèmes
+    </a>
+    <a class="user-icon" routerLink="/profile" (click)="active = false" aria-label="Profil">
+      <span class="material-icons">account_circle</span>
+    </a>
+  </nav>
+  }
+</header>
+}

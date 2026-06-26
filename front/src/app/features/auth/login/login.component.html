@@ -1,0 +1,38 @@
+<div class="login">
+
+  <header class="login-header">
+    <button type="button" (click)="goBack()" class="back-btn" aria-label="Retour à la page précédente">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <h1>Se connecter</h1>
+  </header>
+
+  <section class="login-section">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-field">
+        <label for="identifier">E-mail ou nom d’utilisateur</label>
+        <input id="identifier" type="text" formControlName="identifier" class="custom-input"
+          aria-describedby="identifier-error">
+      </div>
+
+      <div class="form-field">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" class="custom-input"
+          aria-describedby="password-error">
+      </div>
+
+      @if (onError) {
+      <div class="error-message" role="alert" aria-live="assertive">
+        <p>{{ errorMessage || 'Identifiants invalides' }}</p>
+      </div>
+      }
+
+      <button type="submit" class="button-primary" [disabled]="loginForm.invalid">
+        Se connecter
+      </button>
+
+    </form>
+  </section>
+
+</div>

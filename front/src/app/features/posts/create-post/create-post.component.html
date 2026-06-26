@@ -1,0 +1,46 @@
+<div class="form">
+  <header class="form-header">
+    <button type="button" (click)="back()" class="back-btn" aria-label="Retour">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <h1>Créer un nouvel article</h1>
+  </header>
+  <section class="form-section">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-field">
+        <label for="topicId">Thème</label>
+        <select id="topicId" formControlName="topicId" class="custom-input" required>
+          <option value="" disabled>Sélectionner un thème</option>
+          @for (topic of topics; track topic.id) {
+          <option [value]="topic.id">
+            {{ topic.name }}
+          </option>
+          }
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="title">Titre</label>
+        <input id="title" type="text" formControlName="title" placeholder="Titre de l’article" class="custom-input"
+          autocomplete="off" required>
+      </div>
+      <div class="form-field">
+        <label for="content">Contenu</label>
+        <textarea id="content" formControlName="content" placeholder="Contenu de l’article"
+          class="custom-input textarea-input" rows="5" required>
+        </textarea>
+      </div>
+      @if (onError) {
+      <p class="error-message">
+        {{ errorMessage || 'Une erreur est survenue' }}
+      </p>
+      }
+      <div class="form-actions">
+        <button type="submit" class="button-primary" [disabled]="postForm.invalid">
+          Créer
+        </button>
+      </div>
+
+    </form>
+  </section>
+
+</div>

@@ -1,0 +1,50 @@
+@if (post$ | async; as post) {
+<div class="detail">
+  <header class="post-header">
+    <button type="button" (click)="back()" class="back-btn" aria-label="Retour">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <h1>{{ post.title }}</h1>
+  </header>
+  <div class="post-meta">
+    <span>{{ post.createdAt | date:'short' }}</span>
+    <span class="author-name">{{ post.author }}</span>
+    <span class="topic-name">{{ post.topic }}</span>
+  </div>
+  <section class="post-content">
+    <p>{{ post.content }}</p>
+  </section>
+
+  <hr>
+
+  <section class="comment-form">
+    <h3>Commentaires</h3>
+    <div class="comment-list">
+      @for (comment of post.comments; track comment.id) {
+      <div class="comment-item">
+        <div class="comment-author">
+          {{ comment.authorName }}
+        </div>
+        <div class="comment-content">
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+      }
+      @if (post.comments.length === 0) {
+      <p class="empty-state">Aucun commentaire pour le moment</p>
+      }
+    </div>
+    <div class="comment-actions">
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment(post.id)" class="comment-field" novalidate>
+
+        <input type="text" formControlName="content" placeholder="Écrivez ici votre commentaire" class="comment-input"
+          autocomplete="off" required>
+
+        <button type="submit" class="send-btn" [disabled]="commentForm.invalid" aria-label="Envoyer le commentaire">
+          <span class="material-icons">send</span>
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
+}

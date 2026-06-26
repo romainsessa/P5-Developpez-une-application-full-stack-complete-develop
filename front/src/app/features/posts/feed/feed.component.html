@@ -1,0 +1,29 @@
+<div class="post">
+  <div class="post-actions">
+    <button class="button-primary" routerLink="/create-post">
+      Créer un article
+    </button>
+    <button class="sort-btn" (click)="onSort()">
+      Trier par
+      <span class="material-icons">arrow_downward</span>
+    </button>
+  </div>
+  @if (posts$ | async; as posts) {
+  <div class="post-list">
+    @for (post of posts; track post.id) {
+    <a class="post-card" [routerLink]="['/posts', post.id]">
+      <div class="post-title">
+        <h2>{{ post.title }}</h2>
+      </div>
+      <div class="post-meta">
+        <span>{{ post.createdAt }}</span>
+        <span>{{ post.author }}</span>
+      </div>
+      <div class="post-description">
+        <p>{{ post.content }}</p>
+      </div>
+    </a>
+    }
+  </div>
+  }
+</div>
